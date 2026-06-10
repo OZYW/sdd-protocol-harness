@@ -1,7 +1,7 @@
 # SDD Protocol — Claude Code Harness
 
 [![Version](https://img.shields.io/badge/version-0.4.1-blue)](./RELEASE_NOTES_v0.4.md)
-[![Status](https://img.shields.io/badge/status-real--world%20validated-green)](./experiments/PROTOCOL_FITNESS_AUDIT_002.md)
+[![Status](https://img.shields.io/badge/status-real--world%20validated-green)]()
 
 A **filesystem-based governance layer** that makes [Claude Code](https://claude.ai/code) automatically follow structured development practices.
 
@@ -28,28 +28,42 @@ No code is written without an accepted spec. No spec is changed without your exp
 
 ## Quick Start
 
-### One-line Install
+### Install Skill (Once per Machine)
+
+The skill provides the `/sdd-protocol` command interface. Install it once:
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/YOURNAME/sdd-protocol/main/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/OZYW/sdd-protocol-harness/v0.4.1/install.sh | bash
 ```
 
-### Manual Install
+> This installs the skill to `~/.claude/skills/sdd-protocol/`. You only need to do this once per machine, or when upgrading to a new version.
+
+### Initialize Project Harness (Once per Project)
+
+Run `install.sh` from within each project directory that will use SDD Protocol:
 
 ```bash
-# 1. Install skill
-cp -r harness/skill ~/.claude/skills/sdd-protocol
+# 1. Go to your project directory
+cd ~/my-new-project
 
-# 2. Install harness to your project
-cp -r harness/.sdd ./
-cp -r harness/.claude ./
+# 2. Install project-level harness files
+bash /path/to/install.sh
 
-# 3. Start Claude Code in your project
-cd your-project
+# Or if install.sh is in your PATH:
+# install.sh
+
+# 3. Start Claude Code
 claude
 
 # 4. Trigger SDD Protocol
 /sdd-protocol build me a bookmark collector with tags and search
+```
+
+### Upgrade to a Newer Version
+
+```bash
+# Re-run install.sh — it updates kernel files while preserving your loop artifacts
+curl -sSL https://raw.githubusercontent.com/OZYW/sdd-protocol-harness/v0.5.0/install.sh | bash
 ```
 
 ---
@@ -58,29 +72,26 @@ claude
 
 ```
 .
-├── .sdd/
-│   ├── kernel/              # Protocol rules (read-only per version)
-│   │   ├── phases.md        # Phase transitions
-│   │   ├── rules.md         # 12 core rules
-│   │   ├── risk_matrix.md   # Action risk levels
+├── .sdd/                          # Project-level SDD state and rules
+│   ├── kernel/                    # Protocol rules (updated by install.sh)
+│   │   ├── phases.md              # Phase transitions
+│   │   ├── rules.md               # 12 core rules
+│   │   ├── risk_matrix.md         # Action risk levels
 │   │   ├── human_gate_format.md
 │   │   └── ...
-│   ├── artifacts/           # Loop outputs (per-project, append-only)
-│   │   ├── templates/       # Empty artifact schemas
+│   ├── artifacts/                 # Loop outputs (your work, never overwritten)
+│   │   ├── templates/             # Empty artifact schemas
 │   │   └── loops/
-│   │       └── L001/        # One directory per loop
-│   └── state/               # Loop state markers
+│   │       └── L001/              # One directory per loop
+│   └── state/                     # Loop state markers
 │       ├── current_loop.yaml
 │       └── phase_history.yaml
 ├── .claude/
-│   └── SDD_PROTOCOL.md      # Claude Code integration instructions
-└── skill/                   # Claude Code Skill (user-level, ~/.claude/skills/)
-    ├── SKILL.md
-    └── references/
-        ├── intake_agent.md
-        ├── spec_agent.md
-        └── ...
+│   └── SDD_PROTOCOL.md            # Claude Code integration instructions
+└── src/                           # Your actual code
 ```
+
+> **Note**: `skill/` lives at `~/.claude/skills/sdd-protocol/` (user-level), not in your project directory.
 
 ---
 
@@ -121,9 +132,7 @@ This harness has been validated through:
 | Dry Run 001 (todo app) | 2026-06-09 | ✅ Pass |
 | Dry Run 002 (editor panel) | 2026-06-09–10 | ✅ Pass (with rescue) |
 
-See [PFA-002](./experiments/PROTOCOL_FITNESS_AUDIT_002.md) for full audit.
-
-** editorpanel-sdd-project** (a real Character Panel dashboard for an editorial team):
+**editorpanel-sdd-project** (a real Character Panel dashboard for an editorial team):
 - 21 acceptance criteria
 - 36 implementation tasks
 - 2 independent spec review rounds
@@ -207,9 +216,8 @@ No more "what language should I use?" surprises mid-implementation.
 This is an experimental protocol. If you use it and find friction:
 
 1. Record the friction in your loop's artifacts
-2. Switch to the Protocol Factory session
-3. Write a [Friction Report](experiments/FRICTION_REPORT_001.md) or [Protocol Fitness Audit](experiments/PROTOCOL_FITNESS_AUDIT_002.md)
-4. Propose a fix via Spec Diff → Human Gate
+2. Open an issue on this repository describing the symptom, expected behavior, and evidence
+3. Or propose a fix via pull request
 
 ---
 
