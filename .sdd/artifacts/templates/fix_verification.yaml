@@ -1,0 +1,65 @@
+# SDD Protocol — Fix Verification Artifact
+# Created when loop returns from E7 to E5 for defect repair.
+# Documents what was fixed, how, and verification results.
+
+schema_version: "0.1"
+artifact_type: "fix_verification"
+
+metadata:
+  fix_id: "FIX-001"
+  loop_id: "L001"
+  source_evidence_pack: "EP-L001"
+  triggered_by: "E7_feedback.implementation_defect"
+  created_at: "YYYY-MM-DD"
+
+# Reference the original defect
+defect:
+  defect_id: "D-XXX"
+  severity: "low | medium | high"
+  description: ""
+  original_file: ""
+  original_line: ""
+  criterion: "A-XXX"
+
+# Root cause analysis
+root_cause: |
+  Why did the defect occur?
+  - Missing validation?
+  - Wrong parameter passed?
+  - Logic error?
+  - Edge case not handled?
+
+# Fix approach
+fix:
+  approach: |
+    How was the defect fixed?
+  files_modified:
+    - path: ""
+      change: ""
+      lines: ""
+  diff_summary: |
+    Brief description of code changes
+
+# Re-verification
+verification:
+  method: "test | screenshot | runtime_check | code_review"
+  evidence:
+    - type: "file | command_output | screenshot"
+      path: ""
+      description: ""
+      result: "pass | fail"
+  criteria_rechecked:
+    - criterion_id: "A-XXX"
+      result: "pass | fail"
+      notes: ""
+
+# Overall verdict
+verdict:
+  all_defects_fixed: true | false
+  remaining_issues: []
+  recommendation: "return_to_e7 | return_to_e5 | blocked"
+
+traceability:
+  original_defect: "evidence_pack.defects[D-XXX]"
+  updated_evidence_pack: "EP-L001-updated"
+  phase_history_entry: "phase_history.entries[N]"

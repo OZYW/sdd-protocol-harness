@@ -1,0 +1,40 @@
+# SDD Protocol — Evidence Pack Artifact
+# Direct evidence collected before claiming completion.
+
+schema_version: "0.1"
+artifact_type: "evidence_pack"
+
+metadata:
+  pack_id: "EP-XXX"
+  loop_id: "LXXX"
+  source_spec_id: "SDD-XXX"
+  collected_by: "verification_agent"
+  date: "YYYY-MM-DD"
+
+# Evidence is split into two layers per PROTOCOL_KERNEL_v0:
+# A-layer: local files, Git state, command output, tests, screenshots, logs, runtime state
+# B-layer: official docs, release notes, issues, external references
+# ONLY A-layer evidence may promote completion status.
+
+evidence:
+  - evidence_id: "EV-001"
+    layer: "A"  # A or B
+    type: "test"  # file | git_diff | command_output | test | screenshot | log | runtime_state | external_ref
+    description: ""
+    artifact_path: ""  # Path to evidence file, if applicable
+    command: ""         # Command that produced this evidence, if applicable
+    output_summary: |
+      # Summary of what the evidence shows. Be specific.
+    passes_criterion: "A-001"  # Which acceptance criterion this supports
+    verified: false            # Did the verification agent confirm this?
+
+# Overall verdict
+verdict:
+  all_criteria_met: false
+  criteria_passed: []
+  criteria_failed: []
+  defects_found: []
+  recommendation: "blocked"  # pass | blocked | partial
+
+# If blocked, what is needed to proceed
+blockers: []

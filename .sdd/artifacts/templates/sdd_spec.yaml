@@ -1,0 +1,108 @@
+# SDD Protocol — SDD Spec Artifact
+# The active product definition produced from an accepted idea brief.
+
+schema_version: "0.1"
+artifact_type: "sdd_spec"
+
+metadata:
+  spec_id: "SDD-XXX"
+  version: "0.1"
+  status: draft  # draft | accepted | superseded
+  source_idea_id: "IB-XXX"
+  spec_agent: "claude_code"
+  review_agent: "claude_code"
+  loop_id: "LXXX"
+  created_at: "YYYY-MM-DD"
+  updated_at: "YYYY-MM-DD"
+
+product_intent: |
+  # State what the product or feature is meant to accomplish in user language.
+  # One paragraph. No implementation details.
+
+goals:
+  - |
+    # Each goal must be verifiable. Start with a verb.
+    # Example: "Allow users to create tasks with a title and due date"
+
+non_goals:
+  - |
+    # Explicitly out of scope. Prevents scope creep.
+    # Example: "Do not support recurring tasks in Phase 1"
+
+actors:
+  - role: ""
+    description: ""
+    needs: ""
+
+domain_terms:
+  - term: ""
+    meaning: ""
+
+functional_behavior:
+  - id: "B-001"
+    behavior: ""
+    source_intent: "IB-XXX"
+    acceptance_signal: ""
+
+state_model: |
+  # Product-level state only. Do not select implementation storage.
+
+user_flow: |
+  # Describe the smallest expected flow from start to completed outcome.
+
+acceptance_criteria:
+  - id: "A-001"
+    criterion: ""
+    verification_method: "test"  # test | screenshot | log | human_acceptance
+
+environment_boundary:
+  # CRITICAL: This section MUST be accepted before implementation (Rule 11).
+  # E3 Human Gate MUST present environment boundary for user confirmation.
+  # E4->E5 transition is BLOCKED if status != "accepted".
+  status: "not_selected"  # not_selected | proposed | accepted | deferred
+
+  # Runtime and language
+  runtime_carrier: ""      # e.g., "python", "nodejs", "go", "rust"
+  language_version: ""     # e.g., "3.12", "20", "1.22"
+
+  # Package management
+  package_manager: ""      # e.g., "uv", "pip", "npm", "pnpm", "cargo"
+  dependency_file: ""      # e.g., "pyproject.toml", "package.json", "Cargo.toml"
+
+  # Environment isolation
+  virtual_env: ""          # e.g., ".venv/", "node_modules/"
+  virtual_env_required: true
+
+  # External services (empty list if none)
+  external_services: []
+
+  # Data persistence
+  data_persistence: ""     # e.g., "none", "sqlite", "json_file", "postgresql"
+
+  # Deployment
+  deployment_target: ""    # e.g., "none", "cli", "web_server", "lambda"
+
+  # Standard commands (must be defined before implementation)
+  commands:
+    install: ""            # e.g., "uv pip install -e .[dev]"
+    run: ""                # e.g., "uv run python main.py"
+    test: ""               # e.g., "uv run pytest"
+    build: ""              # e.g., "uv build"
+    lint: ""               # e.g., "uv run ruff check ."
+
+risks:
+  - risk: ""
+    level: "low"  # low | medium | high
+    mitigation: ""
+    human_approval_needed: false
+
+open_questions:
+  - question: ""
+    status: "open"  # open | resolved | backlog
+    resolution: ""
+
+traceability:
+  - spec_item: ""
+    source_idea: ""
+    downstream_task: ""
+    evidence: ""

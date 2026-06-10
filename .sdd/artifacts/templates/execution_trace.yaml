@@ -1,0 +1,25 @@
+# SDD Protocol — Execution Trace Artifact
+# Append-only, time-ordered record of loop execution.
+
+schema_version: "0.1"
+artifact_type: "execution_trace"
+
+metadata:
+  trace_id: "ET-XXX"
+  loop_id: "LXXX"
+  started_at: "YYYY-MM-DDTHH:MM:SSZ"
+  completed_at: null  # Filled when loop completes
+
+# Append-only entries. NEVER delete or modify existing entries.
+# If a phase restarts, append a new entry. Do not edit the old one.
+entries:
+  - timestamp: "YYYY-MM-DDTHH:MM:SSZ"
+    loop_id: "LXXX"
+    phase: "e1_capture"
+    event: "phase_started"  # phase_started | phase_completed | gate_presented | gate_resolved | error
+    agent_role: "intake_agent"
+    decision: "continue"     # continue | human_gate | blocked | backlog | forbidden
+    artifact_produced: "IB-XXX"
+    artifact_path: ".sdd/artifacts/idea_brief_XXX.yaml"
+    evidence_ref: null
+    notes: ""

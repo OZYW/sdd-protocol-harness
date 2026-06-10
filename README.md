@@ -1,0 +1,226 @@
+# SDD Protocol — Claude Code Harness
+
+[![Version](https://img.shields.io/badge/version-0.4.1-blue)](./RELEASE_NOTES_v0.4.md)
+[![Status](https://img.shields.io/badge/status-real--world%20validated-green)](./experiments/PROTOCOL_FITNESS_AUDIT_002.md)
+
+A **filesystem-based governance layer** that makes [Claude Code](https://claude.ai/code) automatically follow structured development practices.
+
+> **Spec before code. Gate before commit. Evidence before completion.**
+
+---
+
+## What It Does
+
+When you have an idea ("build me a dashboard"), the SDD Protocol harness ensures Claude Code:
+
+1. **Captures** your intent in a structured brief
+2. **Generates** an explicit spec with acceptance criteria
+3. **Reviews** the spec independently for gaps
+4. **Stops** at a Human Gate for your approval
+5. **Compiles** the spec into implementation tasks
+6. **Implements** with role-specific agents
+7. **Verifies** with evidence before claiming done
+8. **Collects** your feedback and routes changes correctly
+
+No code is written without an accepted spec. No spec is changed without your explicit approval.
+
+---
+
+## Quick Start
+
+### One-line Install
+
+```bash
+curl -sSL https://raw.githubusercontent.com/YOURNAME/sdd-protocol/main/install.sh | bash
+```
+
+### Manual Install
+
+```bash
+# 1. Install skill
+cp -r harness/skill ~/.claude/skills/sdd-protocol
+
+# 2. Install harness to your project
+cp -r harness/.sdd ./
+cp -r harness/.claude ./
+
+# 3. Start Claude Code in your project
+cd your-project
+claude
+
+# 4. Trigger SDD Protocol
+/sdd-protocol build me a bookmark collector with tags and search
+```
+
+---
+
+## Project Structure
+
+```
+.
+├── .sdd/
+│   ├── kernel/              # Protocol rules (read-only per version)
+│   │   ├── phases.md        # Phase transitions
+│   │   ├── rules.md         # 12 core rules
+│   │   ├── risk_matrix.md   # Action risk levels
+│   │   ├── human_gate_format.md
+│   │   └── ...
+│   ├── artifacts/           # Loop outputs (per-project, append-only)
+│   │   ├── templates/       # Empty artifact schemas
+│   │   └── loops/
+│   │       └── L001/        # One directory per loop
+│   └── state/               # Loop state markers
+│       ├── current_loop.yaml
+│       └── phase_history.yaml
+├── .claude/
+│   └── SDD_PROTOCOL.md      # Claude Code integration instructions
+└── skill/                   # Claude Code Skill (user-level, ~/.claude/skills/)
+    ├── SKILL.md
+    └── references/
+        ├── intake_agent.md
+        ├── spec_agent.md
+        └── ...
+```
+
+---
+
+## Commands
+
+| Command | Description |
+|---------|-------------|
+| `/sdd-protocol <idea>` | Start a new SDD loop |
+| `/sdd-status` | Show current loop state |
+| `/sdd-continue` | Resume after a gate or blocker |
+| `/sdd-abandon` | Abandon current loop |
+
+---
+
+## Protocol Phases
+
+```
+E1 Capture        → E2 Generate Spec → E2R Review
+                                           ↓
+E8 Spec Diff    ← E3 Human Gate ← (approval required)
+   ↓
+E4 Compile Tasks → E5 Implement → E6 Verify → E7 Feedback
+                                                ↓
+                                         [accept] → Done
+                                         [defect] → E5
+                                         [change] → E8
+```
+
+---
+
+## Real-World Validation
+
+This harness has been validated through:
+
+| Test | Date | Result |
+|------|------|--------|
+| Self-bootstrap | 2026-06-08 | ✅ Pass |
+| Dry Run 001 (todo app) | 2026-06-09 | ✅ Pass |
+| Dry Run 002 (editor panel) | 2026-06-09–10 | ✅ Pass (with rescue) |
+
+See [PFA-002](./experiments/PROTOCOL_FITNESS_AUDIT_002.md) for full audit.
+
+** editorpanel-sdd-project** (a real Character Panel dashboard for an editorial team):
+- 21 acceptance criteria
+- 36 implementation tasks
+- 2 independent spec review rounds
+- 1 environment boundary rescue
+- 3 defect fixes during feedback
+- **Outcome**: All criteria passed, loop completed
+
+---
+
+## Key Features
+
+### Human Gates (Not File Reviews)
+
+The protocol stops at gates with **conversational summaries**, not file lists:
+
+> "I've captured your idea for a dashboard and turned it into a structured plan. Does this match what you had in mind?"
+>
+> **What we built:**
+> - View team rankings by monthly likes
+> - Manage sample inventory with version history
+> - Public dashboard for visitors
+>
+> **Your choices:** [Approve] [Revise] [Reject]
+
+### Independent Spec Review
+
+Before any code is written, a separate Agent reviews the spec against a checklist:
+- Are acceptance criteria testable?
+- Are open questions resolved or routed to gates?
+- Does the spec match the original intent?
+
+### Risk Matrix
+
+Every action is classified:
+
+| Action | Risk | Decision |
+|--------|------|----------|
+| Edit existing file | Low | Auto-proceed |
+| `git commit` | **High** | Human approval |
+| Install dependency | **High** | Human approval |
+| Delete file | **High** | Human approval |
+
+### Environment Boundary Enforcement
+
+Before implementation starts, the technology stack must be chosen and accepted:
+
+```yaml
+environment_boundary:
+  status: "accepted"
+  runtime_carrier: "nodejs"
+  language_version: "20"
+  package_manager: "npm"
+  commands:
+    install: "npm install"
+    run: "npm run dev"
+    test: "npm test"
+```
+
+No more "what language should I use?" surprises mid-implementation.
+
+---
+
+## Status & Roadmap
+
+**Current**: v0.4.1 — Real-world validated
+
+| Phase | Feature | Status |
+|-------|---------|--------|
+| Phase 1 | Basic loop (E1–E7) | ✅ Done |
+| Phase 1.5 | Review exit criteria, question budget | ✅ Done |
+| Phase 1.5b | Environment boundary + Git rules | ✅ Done |
+| Phase 2 | Active intent detection | Planned |
+| Phase 2 | Multi-loop support | Planned |
+| Phase 2 | Execution trace real-time recording | Planned |
+| Phase 3 | Python Protocol Kernel (runtime) | Planned |
+
+---
+
+## Contributing
+
+This is an experimental protocol. If you use it and find friction:
+
+1. Record the friction in your loop's artifacts
+2. Switch to the Protocol Factory session
+3. Write a [Friction Report](experiments/FRICTION_REPORT_001.md) or [Protocol Fitness Audit](experiments/PROTOCOL_FITNESS_AUDIT_002.md)
+4. Propose a fix via Spec Diff → Human Gate
+
+---
+
+## License
+
+MIT — See [LICENSE](./LICENSE).
+
+---
+
+## Credits
+
+- Protocol Design: SDD Protocol Experiment
+- Harness Implementation: Protocol Factory (Claude Code + human steering)
+- Real-World Validation: editorpanel-sdd-project

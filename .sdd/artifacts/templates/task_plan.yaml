@@ -1,0 +1,34 @@
+# SDD Protocol — Task Plan Artifact
+# Implementation plan compiled from an accepted SDD spec.
+
+schema_version: "0.1"
+artifact_type: "task_plan"
+
+metadata:
+  plan_id: "TP-XXX"
+  loop_id: "LXXX"
+  source_spec_id: "SDD-XXX"
+  status: draft  # draft | accepted | in_progress | completed
+  created_at: "YYYY-MM-DD"
+
+# Tasks are derived DIRECTLY from spec clauses.
+# Every task must map to a spec clause or an explicit defect.
+tasks:
+  - task_id: "T-001"
+    description: ""
+    spec_clause: "B-001"  # Which spec behavior this task implements
+    agent_role: "implementation_agent"
+    dependencies: []  # Task IDs that must complete first
+    status: pending    # pending | in_progress | completed | blocked
+    evidence_required: []
+    evidence_collected: []
+
+# Dependencies between tasks (for visualization / validation)
+dependency_graph: |
+  # Text description or mermaid diagram of task dependencies
+
+# Assignment and execution tracking
+execution:
+  started_at: null
+  completed_at: null
+  blocked_reason: null

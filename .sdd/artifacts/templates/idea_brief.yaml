@@ -1,0 +1,46 @@
+# SDD Protocol — Idea Brief Artifact
+# Captures raw human intent before professional structuring.
+
+schema_version: "0.1"
+artifact_type: "idea_brief"
+
+metadata:
+  idea_id: "IB-XXX"  # Auto-generated: IB-001, IB-002, etc.
+  date: "YYYY-MM-DD"
+  author: "human"    # Always human for idea briefs
+  status: draft      # draft | accepted | revised | abandoned
+  loop_id: "LXXX"    # Links to parent loop
+
+content:
+  raw_intent: |
+    # Paste or transcribe the user's exact words describing what they want.
+    # Do not paraphrase. Preserve ambiguity, enthusiasm, constraints, and non-goals.
+
+  user_constraints: |
+    # What the user explicitly said must be true or must not happen.
+    # Examples: "must work offline", "cannot use React", "must be done by Friday"
+
+  known_preferences: |
+    # What the user has expressed liking or disliking in past interactions.
+    # Examples: "prefers dark mode", "hates modal dialogs"
+
+  explicit_non_goals: |
+    # What the user explicitly said is OUT of scope.
+    # If user did not specify non-goals, mark as "not_specified" — do not invent.
+
+  initial_questions:
+    - question: |
+        # What is unclear or ambiguous about this idea?
+        # Route blocking questions to Human Gate.
+        # Non-blocking questions become assumptions or backlog.
+      blocking: false  # true = must resolve before proceeding
+      routed_to: null  # human_gate | assumption | backlog
+
+  acceptance_signal: |
+    # How will the user know this is done? What does success look like from their perspective?
+    # If user did not specify, write "not_specified — will propose in spec."
+
+traceability:
+  source: "user_input"
+  captured_by: "intake_agent"
+  downstream_spec_id: null  # Filled when spec is generated

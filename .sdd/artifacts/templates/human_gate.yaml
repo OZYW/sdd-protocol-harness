@@ -1,0 +1,47 @@
+# SDD Protocol — Human Gate Artifact
+# Record of a required human confirmation point.
+
+schema_version: "0.1"
+artifact_type: "human_gate"
+
+metadata:
+  gate_id: "HG-XXX"
+  loop_id: "LXXX"
+  phase: ""  # Which phase requested this gate
+  source_spec_id: "SDD-XXX"
+  date: "YYYY-MM-DD"
+
+# This section is what Claude Code presents to the human user.
+# It must be CONVERSATIONAL. No file lists, no diff dumps.
+presentation:
+  current_state: |
+    # One-sentence summary of where we are in the loop.
+
+  decision_needed: |
+    # What does the user need to decide? One clear question.
+
+  recommended_option: |
+    # What does Claude recommend and why?
+
+  alternatives:
+    - option: ""
+      pros: ""
+      cons: ""
+
+  expected_impact: |
+    # What happens if the user approves?
+
+  rollback_path: |
+    # How can the user undo this if they change their mind?
+
+  consequence_of_no_decision: |
+    # What happens if the user does not respond or defers?
+
+# This section is the record of what happened.
+record:
+  user_response: ""  # approved | revised | rejected | deferred
+  user_notes: |
+    # Any additional context the user provided
+  modifications_requested: []
+  approved_with_conditions: false
+  conditions: []

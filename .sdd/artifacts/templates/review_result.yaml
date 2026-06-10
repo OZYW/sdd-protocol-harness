@@ -1,0 +1,46 @@
+# SDD Protocol — Review Result Artifact
+# Independent review output from Spec Review Agent.
+
+schema_version: "0.1"
+artifact_type: "review_result"
+
+metadata:
+  review_id: "R-XXX"
+  loop_id: "LXXX"
+  round: 1
+  complexity: simple | medium | complex
+  reviewer: "spec_review_agent"
+  date: "YYYY-MM-DD"
+
+# Review verdict
+status: pass | needs_revision
+
+# Spec complexity estimate (must match review depth used)
+complexity_estimate: simple | medium | complex
+
+# Issues found (categorized by severity)
+issues:
+  - severity: blocking | major | minor
+    location: ""      # Which spec section
+    issue: |
+      # What is wrong
+    recommendation: |
+      # How to fix
+
+# Counters (for quick assessment)
+counts:
+  blocking: 0
+  major: 0
+  minor: 0
+
+# One-line summary
+summary: |
+  # e.g., "Pass — 0 blocking, 1 major (acceptance criteria vague), 2 minor"
+
+# Routing decision
+handoff:
+  decision: continue | blocked
+  next_phase: e3_human_gate | e2_generate_spec
+  notes: |
+    # Why this decision was reached
+    # If max rounds reached, note escalation to Human Gate

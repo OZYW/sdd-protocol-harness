@@ -1,0 +1,41 @@
+# SDD Protocol — Spec Diff Artifact
+# Explicit proposed change to the SDD spec before downstream implementation changes.
+
+schema_version: "0.1"
+artifact_type: "spec_diff"
+
+metadata:
+  diff_id: "SD-XXX"
+  loop_id: "LXXX"
+  source_spec_id: "SDD-XXX"      # The spec being modified
+  target_spec_version: "X.Y"     # Current version of the spec
+  proposed_spec_version: "X.Z"   # Version after this diff
+  triggered_by: ""               # user_feedback | runtime_observation | agent_discovery
+  date: "YYYY-MM-DD"
+
+# Classification of what triggered this diff
+classification:
+  feedback_type: ""  # spec_change | implementation_defect | assumption_violation | new_requirement
+  scope_impact: ""   # wording | boundary | flow | data_model | dependency | test_strategy
+  risk_level: "low"  # low | medium | high
+
+# The actual diff — human-readable, structured
+changes:
+  - change_id: "C-001"
+    section: ""        # Which spec section is affected
+    field: ""          # Which field within the section
+    before: |
+      # Current value (verbatim from spec)
+    after: |
+      # Proposed new value
+    rationale: |
+      # Why this change is needed. Link to feedback or evidence.
+    downstream_impact: |
+      # Which tasks, code, or tests need updating if this is accepted
+
+# Routing — this diff must go through Human Gate before implementation
+gate_requirements:
+  requires_human_approval: true
+  gate_summary: |
+    # Conversational summary for the human gate
+    # Must include: what changed, why, what impact, rollback path
